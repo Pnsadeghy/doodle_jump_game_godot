@@ -1,0 +1,44 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://cbvd52n3vc75b"]
+
+[ext_resource type="Texture2D" uid="uid://bujv2degoqksp" path="res://entities/player/assets/lik-right-odskok@2x.png" id="1_8mp22"]
+[ext_resource type="Texture2D" uid="uid://4vo8ctnl7tv8" path="res://entities/player/assets/lik-right@2x.png" id="2_2npm4"]
+[ext_resource type="Texture2D" uid="uid://b4eufhnah8kn6" path="res://entities/player/assets/lik-puca-odskok@2x.png" id="2_kjuhb"]
+[ext_resource type="Texture2D" uid="uid://dgdu35qgtqym7" path="res://entities/player/assets/lik-puca@2x.png" id="3_ce3m7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2npm4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8mp22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2npm4")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kjuhb")
+}],
+"loop": true,
+"name": &"shoot_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ce3m7")
+}],
+"loop": true,
+"name": &"shoot_up",
+"speed": 5.0
+}]

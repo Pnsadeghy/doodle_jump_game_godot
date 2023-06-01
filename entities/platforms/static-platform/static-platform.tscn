@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8im4t1vbpnjr"]
+
+[ext_resource type="Script" path="res://entities/platforms/static-platform/static-platform.gd" id="1_hfudo"]
+[ext_resource type="Texture2D" uid="uid://bxsiupca8w0nm" path="res://entities/platforms/static-platform/static-platform.png" id="1_smi20"]
+[ext_resource type="AudioStream" uid="uid://c7jigqlkhx6lg" path="res://entities/platforms/static-platform/jump.wav" id="3_4odh3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_444xi"]
+size = Vector2(112, 8)
+
+[node name="StaticPlatform" type="StaticBody2D" groups=["platforms"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_hfudo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_smi20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_444xi")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4odh3")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

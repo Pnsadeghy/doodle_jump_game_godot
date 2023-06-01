@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4llrthdcaj3x"]
+
+[ext_resource type="PackedScene" uid="uid://b8im4t1vbpnjr" path="res://entities/platforms/static-platform/static-platform.tscn" id="1_3yh6a"]
+[ext_resource type="Texture2D" uid="uid://lkbsod75ypyy" path="res://entities/jump-platform/assets/jump-platform.png" id="1_hent3"]
+[ext_resource type="Script" path="res://entities/jump-platform/Jumper.gd" id="2_8cqsi"]
+[ext_resource type="Texture2D" uid="uid://dqfnbdfqlye2e" path="res://entities/jump-platform/assets/jump-platform-used.png" id="2_r1i88"]
+[ext_resource type="AudioStream" uid="uid://nidkacxpovwl" path="res://entities/jump-platform/assets/feder.mp3" id="5_y18jq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k4gvp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hent3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r1i88")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sfh3"]
+size = Vector2(69, 9)
+
+[node name="jump-platform" type="Node2D"]
+
+[node name="StaticPlatform" parent="." instance=ExtResource("1_3yh6a")]
+
+[node name="Jumper" type="StaticBody2D" parent="." groups=["platforms"]]
+position = Vector2(0, -28)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_8cqsi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Jumper"]
+sprite_frames = SubResource("SpriteFrames_k4gvp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jumper"]
+position = Vector2(2, -2.5)
+shape = SubResource("RectangleShape2D_2sfh3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Jumper"]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Jumper"]
+stream = ExtResource("5_y18jq")
+
+[connection signal="screen_exited" from="Jumper/VisibleOnScreenNotifier2D" to="Jumper" method="_on_visible_on_screen_notifier_2d_screen_exited"]

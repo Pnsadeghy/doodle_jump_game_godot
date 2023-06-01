@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7f53geacxouf"]
+
+[ext_resource type="Script" path="res://scenes/start_scene/start_scene.gd" id="1_jr46r"]
+[ext_resource type="Texture2D" uid="uid://sqc8squy7j8k" path="res://assets/textures/background.png" id="2_icwd0"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_jr46r")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(560, 800)
+
+[node name="TextureRect" type="TextureRect" parent="Background/ParallaxLayer"]
+offset_right = 1122.0
+offset_bottom = 1622.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_icwd0")
+stretch_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="StartUI" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="StartUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartUI/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="StartUI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "Doodle Jump"
+
+[node name="MaxScore" type="Label" parent="StartUI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "MAX SCORE: 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameStart" type="Button" parent="StartUI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "START THE GAME"
+
+[connection signal="pressed" from="StartUI/CenterContainer/VBoxContainer/GameStart" to="." method="_on_game_start_pressed"]

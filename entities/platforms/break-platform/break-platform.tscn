@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://w11ksh8gtqry"]
+
+[ext_resource type="Script" path="res://entities/platforms/break-platform/break-platform.gd" id="1_1kgmo"]
+[ext_resource type="Texture2D" uid="uid://dldbswaoukqdx" path="res://entities/platforms/break-platform/assets/break-platform.png" id="1_24fnc"]
+[ext_resource type="Texture2D" uid="uid://co07t38ffsr4w" path="res://entities/platforms/break-platform/assets/break-platform-1.png" id="1_aeeae"]
+[ext_resource type="Texture2D" uid="uid://bafilumc3bq35" path="res://entities/platforms/break-platform/assets/break-platform-2.png" id="2_5buto"]
+[ext_resource type="AudioStream" uid="uid://b82e2k7ccn2um" path="res://entities/platforms/break-platform/assets/breaking-arcade.mp3" id="5_8t135"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqm2i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_aeeae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5buto")
+}],
+"loop": false,
+"name": &"break",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_24fnc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jnyrn"]
+size = Vector2(120, 11)
+
+[node name="break-platform" type="StaticBody2D" groups=["platforms"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_1kgmo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 13)
+sprite_frames = SubResource("SpriteFrames_nqm2i")
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_jnyrn")
+
+[node name="BreakSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8t135")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

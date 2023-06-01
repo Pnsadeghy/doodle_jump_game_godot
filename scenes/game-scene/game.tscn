@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://cte202bdl4dtx"]
+
+[ext_resource type="Script" path="res://entities/camera/Camera2D.gd" id="1_2xoft"]
+[ext_resource type="PackedScene" uid="uid://c6u6gum1ef45g" path="res://entities/player/player.tscn" id="1_5olsd"]
+[ext_resource type="Script" path="res://scenes/game-scene/game.gd" id="1_lcmhk"]
+[ext_resource type="PackedScene" uid="uid://b8im4t1vbpnjr" path="res://entities/platforms/static-platform/static-platform.tscn" id="2_0redi"]
+[ext_resource type="Texture2D" uid="uid://sqc8squy7j8k" path="res://assets/textures/background.png" id="3_t44qu"]
+[ext_resource type="PackedScene" uid="uid://bwwa7e7rref4f" path="res://entities/platform-spawner/platform_spawner.tscn" id="5_701at"]
+[ext_resource type="PackedScene" uid="uid://8vu6avd7r0m5" path="res://ui/hud/hud.tscn" id="6_fok5s"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lcmhk")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(560, 800)
+
+[node name="TextureRect" type="TextureRect" parent="Background/ParallaxLayer"]
+offset_right = 1122.0
+offset_bottom = 1622.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_t44qu")
+stretch_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_2xoft")
+follower_node = NodePath("../Player")
+
+[node name="HUD" parent="." instance=ExtResource("6_fok5s")]
+offset = Vector2(0, 0)
+transform = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_5olsd")]
+
+[node name="StaticPlatform" parent="." instance=ExtResource("2_0redi")]
+position = Vector2(0, 200)
+
+[node name="PlatformSpawner" parent="." instance=ExtResource("5_701at")]
+follower_node = NodePath("../Player")
+first_y = 200
+
+[connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
+[connection signal="on_add_new_platform" from="PlatformSpawner" to="." method="_on_platform_spawner_on_add_new_platform"]
